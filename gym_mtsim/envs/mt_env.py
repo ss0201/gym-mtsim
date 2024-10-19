@@ -97,7 +97,7 @@ class MtEnv(gym.Env):
         self.simulator: MtSimulator = NotImplemented
         self.history: List[Dict[str, Any]] = NotImplemented
 
-    def reset(self, seed=None, options=None) -> Dict[str, np.ndarray]:
+    def reset(self, seed=None, options=None) -> Tuple[Dict[str, np.ndarray], Dict[str, Any]]:
         super().reset(seed=seed, options=options)
 
         self._truncated = False
@@ -111,7 +111,7 @@ class MtEnv(gym.Env):
 
         return observation, info
 
-    def step(self, action: np.ndarray) -> Tuple[Dict[str, np.ndarray], float, bool, Dict[str, Any]]:
+    def step(self, action: np.ndarray) -> Tuple[Dict[str, np.ndarray], float, bool, bool, Dict[str, Any]]:
         orders_info, closed_orders_info = self._apply_action(action)
 
         self._current_tick += 1
